@@ -2,7 +2,7 @@ const form = document.getElementById('download-form');
 const input = document.getElementById('folder-url');
 const state = document.getElementById('status');
 
-const baseUrl = "http://ec0w0g04w4k4occsw80cg0ok.64.176.186.245.sslip.io"
+const baseUrl = "https://ec0w0g04w4k4occsw80cg0ok.64.176.186.245.sslip.io"
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
