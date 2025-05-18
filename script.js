@@ -2,14 +2,25 @@ const form = document.getElementById('download-form');
 const input = document.getElementById('folder-url');
 const state = document.getElementById('status');
 
-const baseUrl = "http://localhost:3000"
+const baseUrl = "http://ec0w0g04w4k4occsw80cg0ok.64.176.186.245.sslip.io"
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const folderUrl = input.value.trim();
+
+const url = new URL(folderUrl);
+
+const githubFolderUrl = `${url.origin}${url.pathname}`;
+
+let query = url.searchParams.toString();
+if(query){
+    query = (query.split("="))[1]
+}
+
+
   state.textContent = 'Preparing download...';
-  const fullUrl = `${baseUrl}/api/download?url=${encodeURIComponent(folderUrl)}`;
+  const fullUrl = `${baseUrl}/api/download?url=${encodeURIComponent(githubFolderUrl)}&fileName=${encodeURIComponent(query)}`;
 
   try {
 
@@ -18,9 +29,15 @@ form.addEventListener('submit', async (e) => {
     });
 
 
-    if (res.ok) {
+    if (res.ok) { 
+
+  const contentDisposition = [...res.headers.entries()]
+  .find(([key]) => key.toLowerCase() === 'content-disposition')?.[1];
+
+
       const blob = await res.blob();
-      const contentDisposition = res.headers.get('Content-Disposition');
+
+
       const match = /filename="(.+?)"/.exec(contentDisposition || '');
       const filename = match?.[1] || 'download.zip';
 
@@ -32,6 +49,7 @@ form.addEventListener('submit', async (e) => {
       link.remove();
 
       state.textContent = 'Download started!';
+
     } else {
       const contentType = res.headers.get('Content-Type') || '';
       let errorMessage = `Error ${res.state}`;
