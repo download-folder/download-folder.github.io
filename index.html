@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GitHub Folder Downloader – Download a GitHub Folder as ZIP</title>
+  <meta name="description" content="Easily download a folder from any public GitHub repository as a ZIP file. Just paste the GitHub folder URL and download instantly. No cloning required.">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <header>
+      <h1>GitHub Folder Downloader</h1>
+      <p>Download a specific folder from any public GitHub repository as a ZIP file.</p>
+    </header>
+
+    <section aria-labelledby="how-it-works">
+      <h2 id="how-it-works">How to Download a Folder from GitHub</h2>
+      <ol>
+        <li>Go to the GitHub repository and navigate to the folder you want.</li>
+        <li>Copy the URL of that folder.</li>
+        <li>Paste it into the box below and click "Download ZIP".</li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="download-form-label">
+      <h2 id="download-form-label">Download GitHub Folder as ZIP</h2>
+      <form id="download-form">
+        <label for="folder-url" class="visually-hidden">GitHub Folder URL</label>
+        <input
+          type="url"
+          id="folder-url"
+          placeholder="Paste GitHub folder URL (e.g., https://github.com/user/repo/tree/main/folder)"
+          required
+        />
+        <button type="submit">Download ZIP</button>
+      </form>
+      <p id="status" role="status"></p>
+    </section>
+
+    <section>
+      <h2>Why Use This Tool?</h2>
+      <ul>
+        <li>No need to clone entire repositories.</li>
+        <li>Fast and lightweight folder downloads.</li>
+        <li>Works with public repositories instantly.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 GitHub Folder Downloader. Built to make downloading GitHub folders easier.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
