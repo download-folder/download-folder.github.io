@@ -2,7 +2,12 @@ const form = document.getElementById('download-form');
 const input = document.getElementById('folder-url');
 const state = document.getElementById('status');
 
-const baseUrl = "https://ec0w0g04w4k4occsw80cg0ok.64.176.186.245.sslip.io"
+const baseUrl = "https://github-folder-downloader.layerblocks.workers.dev"
+
+function setStatus(msg, type = '') {
+  state.textContent = msg;
+  state.className = type;
+}
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -19,7 +24,7 @@ if(query){
 }
 
 
-  state.textContent = 'Preparing download...';
+  setStatus('Preparing download...', 'loading');
   const fullUrl = `${baseUrl}/api/download?url=${encodeURIComponent(githubFolderUrl)}&fileName=${encodeURIComponent(query)}`;
 
   try {
@@ -29,7 +34,7 @@ if(query){
     });
 
 
-    if (res.ok) { 
+    if (res.ok) {
 
   const contentDisposition = [...res.headers.entries()]
   .find(([key]) => key.toLowerCase() === 'content-disposition')?.[1];
@@ -48,7 +53,7 @@ if(query){
       link.click();
       link.remove();
 
-      state.textContent = 'Download started!';
+      setStatus('Download started!', 'success');
 
     } else {
       const contentType = res.headers.get('Content-Type') || '';
@@ -62,11 +67,10 @@ if(query){
         console.error('Unexpected response:', errText);
       }
 
-      state.textContent = errorMessage;
+      setStatus(errorMessage, 'error');
     }
   } catch (err) {
     console.error(err);
-    state.textContent = 'An unexpected error occurred.';
+    setStatus('An unexpected error occurred.', 'error');
   }
 });
-
